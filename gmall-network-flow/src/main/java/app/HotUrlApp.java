@@ -41,6 +41,7 @@ public class HotUrlApp {
 
         //读取文本数据转换Bean提取时间戳设置水位线
         SingleOutputStreamOperator<ApacheLog> apacheLogDS = env.readTextFile("input/apache.log")
+        //SingleOutputStreamOperator<ApacheLog> apacheLogDS = env.socketTextStream("hadoop102",9999)
                 .map(new MapFunction<String, ApacheLog>() {
                     @Override
                     public ApacheLog map(String value) throws Exception {
