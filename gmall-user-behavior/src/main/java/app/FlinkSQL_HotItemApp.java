@@ -68,7 +68,7 @@ public class FlinkSQL_HotItemApp {
         tableEnv.createTemporaryView("itemCountTable",rowDataStream,"itemId,ict,windowTime");
 
         //使用over按照窗口分区获取top5
-        Table windowOrderTable = tableEnv.sqlQuery("select windowTime,itemId,ict from (select windowTime,itemId,ict,row_number() over(partition by windowTime order by ict desc) rk from itemCountTable) where rk <= 5");
+        Table windowOrderTable = tableEnv.sqlQuery("select windowTime,itemId,ict from (select windowTime,itemId,ict,row_number() over(partition by windowTime order by ict desc) rk from itemCountTable ) where rk <= 5");
 
         //打印测试
         tableEnv.toRetractStream(windowOrderTable,Row.class).print("window");
